@@ -1,23 +1,49 @@
-import { ProductsScreen, Header, ProductWindow, ProductImage, ProductInfo } from "../components/ProductsScreen"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { ProductsScreen, Header, ProductWindow, ProductImage, ProductInfo, AddChartButton } from "../components/ProductsScreen"
 
-export default function Produtos(){
+function ProductData({prodId, prodImg, prodName, prodPrice}){
     return(
+        <ProductWindow>
+            <Link to={`/produtos/${prodId}`}>
+                <ProductImage src={prodImg} />
+                <ProductInfo>
+                    <p>{prodName}</p>
+                    <p>R$ {prodPrice}</p>
+                    <AddChartButton>Comprar</AddChartButton>
+                </ProductInfo>
+            </Link>
+        </ProductWindow>
+    )
+}
+
+export default function Produtos() {
+    const [listaProdutos, setListaProdutos] = useState([])
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/produtos`)
+            .then((res) => {
+                setListaProdutos(res.data)
+                console.log(res.data)
+            })
+            .catch(err => console.log(err.response.request.status))
+    }, [])
+
+    return (
         <ProductsScreen>
             <Header>JoCaDa Sports</Header>
-            <ProductWindow>
-                <ProductImage src="https://imgcentauro-a.akamaihd.net/400x400/M0PSHV01/camisa-palmeiras-puma-ii-2022-feminina-img.jpg" alt="" />
-                <ProductInfo>
-                    <p>Nome</p>
-                    <p>Valor</p>
-                </ProductInfo>
-            </ProductWindow>
-            <ProductWindow>
-                <ProductImage src="https://imgcentauro-a.akamaihd.net/400x400/975416NE/camisa-do-corinthians-iii-22-stadium-nike-masculina-img.jpg" />
-            </ProductWindow>
-            <ProductWindow></ProductWindow>
-            <ProductWindow></ProductWindow>
-            <ProductWindow></ProductWindow>
-            <ProductWindow></ProductWindow>
+            {listaProdutos ? (
+                listaProdutos.map((prod) =>
+                    <ProductData 
+                    key={prod._id} 
+                    prodId={prod._id}
+                    prodImg={prod.imagem}
+                    prodName={prod.nome}
+                    prodPrice={prod.valor}/>
+                )
+            ) : ("...carregando")}
+
         </ProductsScreen>
     )
 }
