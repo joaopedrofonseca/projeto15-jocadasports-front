@@ -12,14 +12,17 @@ export const AuthScreen = styled.div`
     h1{
         margin-top: 15vh;
         margin-bottom: 5vh;
-        font-size: 30px;
-        background-color: #f2910a;
-        color: white;
+        font-size: 40px;
+        color: black;
+        font-family: 'Unbounded', cursive;
+
     }
     h2{
         margin-top: 10px;
         color: white;
         cursor: pointer;
+        font-family: 'Raleway';
+        font-weight: 700;
     }
     form{
         display: flex;
@@ -32,6 +35,10 @@ export const AuthScreen = styled.div`
             border: none;
             box-sizing: border-box;
             padding: 9px;
+            font-family: 'Raleway';
+            font-weight: 700;
+            font-size: 15px;
+
         }
         button{
             cursor: pointer;
@@ -41,8 +48,9 @@ export const AuthScreen = styled.div`
             border-radius: 5px;
             border: none;
 
-            background-color: #f2910a;
+            background-color: black;
             color: white;
+            font-family: 'Unbounded', cursive;
         }
     }
 `
@@ -53,5 +61,8 @@ export const Warning = styled.div`
     font-size: 18px;
     h3{
         margin-left: 5px;
+        font-family: 'Raleway';
+        font-weight: 400;
+
     }
 `
