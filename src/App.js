@@ -12,10 +12,10 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Login setToken={setToken}/>}/>
-      <Route path="/cadastro" element={<Cadastro/>}/>
+      {/* <Route path="/" element={<Login setToken={setToken}/>}/>
+      <Route path="/cadastro" element={<Cadastro/>}/> */}
       <Route path="/produtos" element={<Produtos/>}/>
-      <Route path="/produtos/:prodId" element={<InfoProduto />}/>
+      <Route path="/detalhes/:prodId" element={<InfoProduto />}/>
     </Routes>
     </BrowserRouter>
   );
