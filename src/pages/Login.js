@@ -2,32 +2,37 @@ import axios from "axios"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthScreen, Warning } from "../components/Auth.Screen"
+import { BeatLoader } from "react-spinners"
 
 
 export default function Login({setToken}) {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [erro, setErro] = useState(undefined)
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     function login(e){
         e.preventDefault()
+        setLoading(true)
         const body = {email, senha}
         axios.post(`${process.env.REACT_APP_API_URL}/login`, body)
         .then(res => {
             navigate("/produtos")
             setToken(res.data)
-            console.log(res.data)})
-        .catch(err => setErro(err.response.request.status))
+            })
+        .catch(err => {
+            setLoading(false)
+            setErro(err.response.request.status)})
     }
 
     return (
         <AuthScreen>
             <h1>Jocada Sports</h1>
             <form onSubmit={login}>
-                <input placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required></input>
-                <input placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} required></input>
-                <button type="submit">Entrar</button>
+                <input placeholder="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required disabled={loading}></input>
+                <input placeholder="senha" type="password" value={senha} onChange={e => setSenha(e.target.value)} required disabled={loading}></input>
+                <button type="submit">{loading ? <BeatLoader color="white" size={7} /> : 'Entrar'}</button>
             </form>
             {erro &&
                 <Warning>
