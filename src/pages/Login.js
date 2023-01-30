@@ -15,8 +15,8 @@ export default function Login({setToken}) {
         const body = {email, senha}
         axios.post(`${process.env.REACT_APP_API_URL}/login`, body)
         .then(res => {
-            navigate("/produtos")
-            setToken(res.data)
+            persistirToken(res.data)
+            console.log(token)})
             console.log(res.data)})
         .catch(err => setErro(err.response.request.status))
     }
