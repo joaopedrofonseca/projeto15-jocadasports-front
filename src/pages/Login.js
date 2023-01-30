@@ -1,23 +1,24 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthScreen, Warning } from "../components/Auth.Screen"
+import Context from "../components/Context"
 
-
-export default function Login({setToken}) {
+export default function Login() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [erro, setErro] = useState(undefined)
     const navigate = useNavigate()
+    const {token, persistirToken} = useContext(Context)
 
     function login(e){
         e.preventDefault()
         const body = {email, senha}
         axios.post(`${process.env.REACT_APP_API_URL}/login`, body)
         .then(res => {
+            navigate("/produtos")
             persistirToken(res.data)
             console.log(token)})
-            console.log(res.data)})
         .catch(err => setErro(err.response.request.status))
     }
 

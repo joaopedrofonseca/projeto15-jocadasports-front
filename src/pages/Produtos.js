@@ -1,7 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ProductsScreen, Header, ProductWindow, ProductImage, ProductInfo, AddChartButton, Container } from "../components/ProductsScreen"
+import shoppingcart from "../assets/imgs/shoppingcart.svg"
 
 function ProductData({ prodId, prodImg, prodName, prodPrice }) {
     return (
@@ -20,6 +21,7 @@ function ProductData({ prodId, prodImg, prodName, prodPrice }) {
 
 export default function Produtos() {
     const [listaProdutos, setListaProdutos] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/produtos`)
@@ -30,9 +32,16 @@ export default function Produtos() {
             .catch(err => console.log(err.response.request.status))
     }, [])
 
+    function irAoCarrinho () {
+        navigate("/carrinho")
+    }
+
     return (
         <ProductsScreen>
-            <Header>JoCaDa Sports</Header>
+            <Header>
+                {"JoCaDa Sports"}
+                <img onClick={irAoCarrinho} src={shoppingcart} alt="carrinho de compras" />
+            </Header>
             <Container>
                 {listaProdutos ? (
                     listaProdutos.map((prod) =>
