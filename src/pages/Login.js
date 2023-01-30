@@ -1,16 +1,17 @@
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AuthScreen, Warning } from "../components/Auth.Screen"
+import Context from "../components/Context"
 import { BeatLoader } from "react-spinners"
 
-
-export default function Login({setToken}) {
+export default function Login() {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
     const [erro, setErro] = useState(undefined)
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const {token, persistirToken} = useContext(Context)
 
     function login(e){
         e.preventDefault()
@@ -19,7 +20,7 @@ export default function Login({setToken}) {
         axios.post(`${process.env.REACT_APP_API_URL}/login`, body)
         .then(res => {
             navigate("/produtos")
-            setToken(res.data)
+            persistirToken(res.data)
             })
         .catch(err => {
             setLoading(false)

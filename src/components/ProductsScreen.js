@@ -35,6 +35,12 @@ export const Header = styled.div`
     font-family: 'Unbounded', cursive;
     font-weight: 700;
     font-size: 25px;
+    img{
+        position: absolute;
+        width: 30px;
+        right: 30px; 
+        cursor: pointer;
+    }
 `
 
 export const ProductWindow = styled.div`
