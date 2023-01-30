@@ -7,9 +7,7 @@ import { Header } from "../components/ProductsScreen"
 import checkout from "../assets/imgs/checkoutcart.svg"
 
 export default function CarrinhoDeCompras() {
-    const { token } = useContext(Context)
-    const [produtos, setProdutos] = useState([])
-    const [total, setTotal] = useState(0)
+    const { token, produtos, setProdutos, total, setTotal } = useContext(Context)
     const navigate = useNavigate()
     const URL = `${process.env.REACT_APP_API_URL}/carrinho`
     const config = {

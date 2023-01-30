@@ -10,6 +10,8 @@ import Checkout from "./pages/Checkout"
 
 
 function App() {
+  const [produtos, setProdutos] = useState([])
+  const [total, setTotal] = useState(0)
   const tokenLocalStorage = localStorage.getItem("token")
   const [token, setToken] = useState(tokenLocalStorage)
 
@@ -19,7 +21,7 @@ function App() {
   }
 
   return (
-    <Context.Provider value={{ token, setToken, persistirToken }}>
+    <Context.Provider value={{ token, setToken, persistirToken, produtos, setProdutos, total, setTotal }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />

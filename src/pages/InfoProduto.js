@@ -7,9 +7,9 @@ import Context from "../components/Context"
 
 export default function InfoProduto() {
     const { prodId } = useParams()
-    const [produto, setProduto] = useState({})
     const navigate = useNavigate()
-    const { token } = useContext(Context)
+    const [produto, setProduto] = useState({})
+    const { token} = useContext(Context)
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/detalhes/${prodId}`)
